@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Temperatura</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4ecdc4;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3acbb4;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Conversor de Temperatura</h2>
+
+        <label for="temperatura">Temperatura:</label>
+        <input type="number" id="temperatura" placeholder="Digite a temperatura">
+
+        <label for="direcao">Converter para:</label>
+        <select id="direcao">
+            <option value="CtoF">Celsius para Fahrenheit</option>
+            <option value="FtoC">Fahrenheit para Celsius</option>
+        </select>
+
+        <button onclick="converterTemperatura()">Converter</button>
+
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function converterTemperatura() {
+            let temperatura = parseFloat(document.getElementById("temperatura").value);
+            let direcao = document.getElementById("direcao").value;
+
+            if (isNaN(temperatura)) {
+                document.getElementById("resultado").innerText = "Por favor, insira uma temperatura válida.";
+                return;
+            }
+
+            let resultado;
+
+            if (direcao === "CtoF") {
+                resultado = (temperatura * 9 / 5) + 32;
+                document.getElementById("resultado").innerText = 
+                    `${temperatura}°C = ${resultado.toFixed(2)}°F`;
+            } else if (direcao === "FtoC") {
+                resultado = (temperatura - 32) * 5 / 9;
+                document.getElementById("resultado").innerText = 
+                    `${temperatura}°F = ${resultado.toFixed(2)}°C`;
+            } else {
+                document.getElementById("resultado").innerText = "Direção inválida.";
+            }
+        }
+    </script>
+
+</body>
+</html>

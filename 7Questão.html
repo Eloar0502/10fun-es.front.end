@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filtrar Palavras por Tamanho</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #007BFF;
+      outline: none;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #007BFF;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #resultado {
+      margin-top: 25px;
+      padding: 15px;
+      background-color: #e9ffe8;
+      border-left: 5px solid #28a745;
+      color: #155724;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Filtrar Palavras por Tamanho</h2>
+
+  <label for="palavras">Digite palavras separadas por vírgula:</label>
+  <input type="text" id="palavras" placeholder="">
+
+  <label for="tamanho">Tamanho mínimo:</label>
+  <input type="number" id="tamanho" value="" min="0">
+
+  <button onclick="executarFiltro()">Filtrar</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function filtrarPalavras(arrayDeStrings, tamanhoMinimo) {
+      if (!Array.isArray(arrayDeStrings) || arrayDeStrings.length === 0) {
+        return [];
+      }
+
+      const resultado = arrayDeStrings.filter(palavra => {
+        if (typeof palavra !== 'string') {
+          return false;
+        }
+        return palavra.length >= tamanhoMinimo;
+      });
+
+      return resultado;
+    }
+
+    function executarFiltro() {
+      const inputPalavras = document.getElementById("palavras").value;
+      const tamanhoMinimo = parseInt(document.getElementById("tamanho").value);
+
+      
+      const arrayDeStrings = inputPalavras.split(',').map(p => p.trim());
+
+      
+      const resultado = filtrarPalavras(arrayDeStrings, tamanhoMinimo);
+
+      
+      const divResultado = document.getElementById("resultado");
+      if (resultado.length > 0) {
+        divResultado.innerHTML = "Palavras filtradas: <br><strong>" + resultado.join(", ") + "</strong>";
+      } else {
+        divResultado.innerHTML = "<strong>Nenhuma palavra encontrada.</strong>";
+      }
+    }
+  </script>
+
+</body>
+</html>

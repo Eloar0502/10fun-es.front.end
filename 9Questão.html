@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verificador de Número Primo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff0f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+      text-align: center;
+    }
+
+    h1 {
+      color: #ff69b4;
+    }
+
+    input {
+      padding: 10px;
+      width: 200px;
+      border: 2px solid #ff69b4;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff1493;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #d63382;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🔍 É Primo?</h1>
+    <input type="number" id="numeroInput" placeholder="Digite um número..." />
+    <br />
+    <button onclick="verificar()">Verificar</button>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function encontrarNumeroPrimo(numero) {
+      if (typeof numero !== 'number' || numero < 2 || !Number.isInteger(numero)) {
+        return false;
+      }
+
+      for (let i = 2; i <= Math.sqrt(numero); i++) {
+        if (numero % i === 0) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    function verificar() {
+      const input = document.getElementById("numeroInput").value;
+      const numero = parseInt(input);
+      const resultadoDiv = document.getElementById("resultado");
+
+      if (isNaN(numero)) {
+        resultadoDiv.innerText = "Por favor, digite um número válido.";
+        return;
+      }
+
+      const ehPrimo = encontrarNumeroPrimo(numero);
+
+      if (ehPrimo) {
+        resultadoDiv.innerText = `✅ O número ${numero} é primo!`;
+      } else {
+        resultadoDiv.innerText = `❌ O número ${numero} NÃO é primo.`;
+      }
+    }
+  </script>
+
+</body>
+</html>

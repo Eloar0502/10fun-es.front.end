@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Categorizador de Produtos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 350px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input[type="number"] {
+      width: 90%;
+      padding: 10px;
+      margin: 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #2c3e50;
+    }
+
+    .error {
+      color: red;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🏷️ Categoria do Produto</h1>
+    <input type="number" id="precoInput" placeholder="Digite o preço..." step="0.01" min="0.01" />
+    <br />
+    <button onclick="verificar()">Categorizar</button>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function categorizarProduto(preco) {
+      if (typeof preco !== 'number' || preco <= 0) {
+        throw new Error("O preço deve ser um número positivo.");
+      }
+
+      if (preco < 50) {
+        return "Econômico";
+      } else if (preco <= 100) {
+        return "Intermediário";
+      } else {
+        return "Premium";
+      }
+    }
+
+    function verificar() {
+      const input = document.getElementById("precoInput").value;
+      const resultadoDiv = document.getElementById("resultado");
+
+      try {
+        const preco = parseFloat(input);
+
+        if (isNaN(preco)) {
+          throw new Error("Por favor, insira um número válido.");
+        }
+
+        const categoria = categorizarProduto(preco);
+        resultadoDiv.innerHTML = `📢 Este produto é da categoria: <strong>${categoria}</strong>`;
+      } catch (error) {
+        resultadoDiv.innerHTML = `<span class="error">⚠️ ${error.message}</span>`;
+      }
+    }
+  </script>
+
+</body>
+</html>

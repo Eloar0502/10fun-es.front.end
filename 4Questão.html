@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Senha Aleatória</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #ff4b5c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e03c4d;
+        }
+
+        #senhaGerada {
+            margin-top: 20px;
+            font-size: 18px;
+            word-break: break-all;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Gerador de Senha Aleatória</h2>
+
+        <label for="comprimento">Comprimento da senha:</label>
+        <input type="number" id="comprimento" placeholder="Digite o tamanho que você deseja">
+
+        <button onclick="gerarSenha()">Gerar Senha</button>
+
+        <p id="senhaGerada"></p>
+    </div>
+
+    <script>
+        function gerarSenha() {
+            let comprimento = parseInt(document.getElementById("comprimento").value);
+
+            // Validação para garantir que o número seja positivo
+            if (isNaN(comprimento) || comprimento <= 0) {
+                document.getElementById("senhaGerada").innerText = "Por favor, insira um número válido maior que zero.";
+                return;
+            }
+
+            let caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let senha = '';
+
+            for (let i = 0; i < comprimento; i++) {
+                let indice = Math.floor(Math.random() * caracteres.length);
+                senha += caracteres.charAt(indice);
+            }
+
+            document.getElementById("senhaGerada").innerText = "Senha Gerada: " + senha;
+        }
+    </script>
+
+</body>
+</html>

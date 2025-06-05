@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contador de Vogais</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 350px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input[type="text"] {
+      width: 90%;
+      padding: 10px;
+      margin: 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #2c3e50;
+    }
+
+    .error {
+      color: red;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🔤 Contar Vogais</h1>
+    <input type="text" id="textoInput" placeholder="Digite um texto aqui..." />
+    <br />
+    <button onclick="verificar()">Contar Vogais</button>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function contarVogais(texto) {
+      // Verifica se é uma string válida
+      if (typeof texto !== 'string') {
+        throw new Error("A entrada deve ser uma string.");
+      }
+
+      const vogais = 'aeiouAEIOU';
+      let contador = 0;
+
+      for (let char of texto) {
+        if (vogais.includes(char)) {
+          contador++;
+        }
+      }
+
+      return contador;
+    }
+
+    function verificar() {
+      const input = document.getElementById("textoInput").value;
+      const resultadoDiv = document.getElementById("resultado");
+
+      try {
+        const totalVogais = contarVogais(input);
+        resultadoDiv.innerHTML = `📢 O texto tem <strong>${totalVogais}</strong> vogais.`;
+      } catch (error) {
+        resultadoDiv.innerHTML = `<span class="error">⚠️ ${error.message}</span>`;
+      }
+    }
+  </script>
+
+</body>
+</html>

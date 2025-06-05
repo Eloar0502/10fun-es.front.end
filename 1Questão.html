@@ -1,0 +1,129 @@
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Desconto</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 35px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #28a745;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Calculadora de Desconto</h2>
+  <label for="preco">Preço (R$)</label>
+  <input type="number" id="preco" placeholder="" step="0.01" min="0">
+
+  <label for="desconto">Desconto (%)</label>
+  <input type="number" id="desconto" placeholder="" step="0.01" min="0" max="100">
+
+  <button onclick="calcular()">Calcular</button>
+  <div id="resultado"></div>
+</div>
+
+<script>
+  function calcular() {
+    const precoInput = document.getElementById('preco');
+    const descontoInput = document.getElementById('desconto');
+    const resultadoDiv = document.getElementById('resultado');
+
+    const preco = parseFloat(precoInput.value);
+    const desconto = parseFloat(descontoInput.value);
+
+    // Validação dos campos
+    if (isNaN(preco) || isNaN(desconto)) {
+      resultadoDiv.className = 'error';
+      resultadoDiv.textContent = 'Por favor, preencha os valores corretamente.';
+      return;
+    }
+
+    if (preco <= 0) {
+      resultadoDiv.className = 'error';
+      resultadoDiv.textContent = 'O preço deve ser maior que zero.';
+      return;
+    }
+
+    if (desconto < 0 || desconto > 100) {
+      resultadoDiv.className = 'error';
+      resultadoDiv.textContent = 'O desconto deve estar entre 0 e 100%.';
+      return;
+    }
+
+    // Cálculo do desconto
+    const precoFinal = preco * (1 - desconto / 100);
+
+    resultadoDiv.className = '';
+    resultadoDiv.textContent = `Preço com desconto: R$ ${precoFinal.toFixed(2).replace('.', ',')}`;
+  }
+</script>
+
+</body>
+</html>

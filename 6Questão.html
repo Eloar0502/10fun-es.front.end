@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Média</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #74ebd5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4fd1c5;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Calculadora de Média</h2>
+
+        <label for="numeros">Digite os números separados por vírgula:</label>
+        <input type="text" id="numeros" placeholder="">
+
+        <button onclick="executarCalculo()">Calcular Média</button>
+
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function calcularMedia(arrayNumeros) {
+            if (arrayNumeros.length === 0) return NaN; // Retorna NaN se não houver números válidos
+
+            let soma = 0;
+            for (let i = 0; i < arrayNumeros.length; i++) {
+                soma += arrayNumeros[i];
+            }
+            return soma / arrayNumeros.length;
+        }
+
+        function executarCalculo() {
+            let entrada = document.getElementById("numeros").value.trim();
+
+            if (!entrada) {
+                document.getElementById("resultado").innerText = "Por favor, insira números válidos.";
+                return;
+            }
+
+            let array = entrada.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
+
+            if (array.length === 0) {
+                document.getElementById("resultado").innerText = "Nenhum número válido foi inserido.";
+                return;
+            }
+
+            let media = calcularMedia(array);
+
+            document.getElementById("resultado").innerText = 
+                `Média: ${media.toFixed(2)}`;
+        }
+    </script>
+
+</body>
+</html>
